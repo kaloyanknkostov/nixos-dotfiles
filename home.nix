@@ -35,9 +35,9 @@
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
   };
-  #home.file.".config/nvim" = {
-  #  source = ./config/nvim;
-  #  recursive = true;
-  #};
+  home.file.".config/nvim" = {
+    source = ./config/nvim;
+    recursive = true;
+  };
   
 }
