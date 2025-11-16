@@ -36,6 +36,16 @@ in
       init.defaultBranch = "main";
     };
   };
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    extraConfig = ''
+      Host github.com
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_ed25519
+    '';
+  };
   programs.bash = {
     enable = true;
     shellAliases = {
@@ -48,9 +58,5 @@ in
   };
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
-  };
-  programs.ssh = {
-    enable = true; # <-- Add this line
-    startAgent = true;
   };
 }
