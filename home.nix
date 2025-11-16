@@ -1,22 +1,36 @@
-{ config, pkgs,neovim-nightly, ... }:
-
-
-
 {
-  imports = 
-    [ 
-      ./modules/suckless.nix
-      ./modules/neovim.nix
-    ];
+  config,
+  pkgs,
+  neovim-nightly,
+  ...
+}:
+let
+  dotfilesConfigDir = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  configsToLink = {
+    nvim = "nvim"; # Links ~/.config/nvim -> ~/nixos-dotfiles/config/nvim
+  };
+in
+{
+  imports = [
+    ./modules/suckless.nix
+    ./modules/neovim.nix
+  ];
+  home.packages = with pkgs; [
+    xclip # For X11 (most desktop environments)
+  ];
   home.username = "kaloyan";
   home.homeDirectory = "/home/kaloyan";
   home.stateVersion = "25.05";
   home.sessionVariables = {
-  LIBGL_ALWAYS_SOFTWARE = "1";
+    LIBGL_ALWAYS_SOFTWARE = "1";
   };
+  xdg.configFile = builtins.mapAttrs (name: path: {
+    source = config.lib.file.mkOutOfStoreSymlink "${dotfilesConfigDir}/${path}";
+    recursive = true;
+  }) configsToLink;
   programs.git = {
     enable = true;
-    userName = "kaloyan"; # Or whatever name you want
+    userName = "kaloyan";
     userEmail = "kaloyanknkostov@gmail.com";
     extraConfig = {
       init.defaultBranch = "main";
@@ -29,15 +43,14 @@
       nrs = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles";
     };
     initExtra = ''
-      	  export PS1="\[\e[38;5;75m\]\u@\h \[\e[38;5;113m\]\w \[\e[38;5;189m\]\$ \[\e[0m\]"
-      	'';
+      export PS1="\[\e[38;5;75m\]\u@\h \[\e[38;5;113m\]\w \[\e[38;5;189m\]\$ \[\e[0m\]"
+    '';
   };
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
   };
-  home.file.".config/nvim" = {
-    source = ./config/nvim;
-    recursive = true;
+  programs.ssh = {
+    enable = true; # <-- Add this line
+    startAgent = true;
   };
-  
 }
