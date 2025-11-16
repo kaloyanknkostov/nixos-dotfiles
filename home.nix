@@ -14,7 +14,14 @@
   home.sessionVariables = {
   LIBGL_ALWAYS_SOFTWARE = "1";
   };
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "kaloyan"; # Or whatever name you want
+    userEmail = "kaloyanknkostov@gmail.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
+  };
   programs.bash = {
     enable = true;
     shellAliases = {
@@ -28,9 +35,9 @@
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
   };
-  home.file.".config/nvim" = {
-    source = ./config/nvim;
-    recursive = true;
-  };
+  #home.file.".config/nvim" = {
+  #  source = ./config/nvim;
+  #  recursive = true;
+  #};
   
 }
