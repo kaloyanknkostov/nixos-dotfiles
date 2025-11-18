@@ -30,6 +30,7 @@
     };
     videoDrivers = [ "vmsvga" ];
   };
+  programs.zsh.enable = true;
   users.users.kaloyan = {
     isNormalUser = true;
     description = "kaloyan";
@@ -40,6 +41,8 @@
     packages = with pkgs; [
       tree
     ];
+
+    shell = pkgs.zsh;
   };
   services.getty.autologinUser = "kaloyan";
   nixpkgs.config.allowUnfree = true;

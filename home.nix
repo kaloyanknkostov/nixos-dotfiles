@@ -17,6 +17,7 @@ in
     ./modules/neovim.nix
     ./modules/ghostty.nix
     ./modules/sh.nix
+    ./modules/tmux.nix
     inputs.zen-browser.homeModules.twilight-official
   ];
   home.packages = with pkgs; [

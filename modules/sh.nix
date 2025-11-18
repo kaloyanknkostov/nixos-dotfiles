@@ -30,6 +30,7 @@
       ".." = "cd ..";
       "..." = "cd ..;cd ..";
       "...." = "cd ..;cd ..;cd ..";
+      nrs = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles";
     };
 
     # Extra initialization
@@ -76,10 +77,16 @@
       bindkey -M viins '^L' clear-screen
 
       # ----------------------------------------------------------------------
-      # Tmux Auto-start
+      # Tmux Auto-start (Robust)
       # ----------------------------------------------------------------------
-      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-          tmux attach -t default || tmux new -s default
+      # If we are not in tmux, and we are in an interactive shell...
+      if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$INSIDE_EMACS" ]]; then
+        # ...and not in a pure TTY (optional, remove condition if you want tmux in TTYs too)
+        if [[ "$TERM" != "linux" ]]; then
+           # Attach to session 'default' or create it if it doesn't exist.
+           # 'exec' replaces the shell process so exiting tmux closes the window.
+           exec tmux new-session -A -s default
+        fi
       fi
     '';
   };
