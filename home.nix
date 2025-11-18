@@ -2,6 +2,7 @@
   config,
   pkgs,
   neovim-nightly,
+  inputs,
   ...
 }:
 let
@@ -14,6 +15,8 @@ in
   imports = [
     ./modules/suckless.nix
     ./modules/neovim.nix
+    ./modules/ghostty.nix
+    inputs.zen-browser.homeModules.twilight-official
   ];
   home.packages = with pkgs; [
     xclip # For X11 (most desktop environments)
@@ -59,4 +62,5 @@ in
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
   };
+  programs.zen-browser.enable = true;
 }

@@ -61,11 +61,29 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "ghostty", NULL };
 
+void
+tagview(const Arg *arg)
+{
+    tag(arg);
+    view(arg);
+}
+
 static const Key keys[] = {
     { MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_q,      killclient,     {0} },
+    { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    { MODKEY|ShiftMask,             XK_1,            tagview,      {.ui = 1 << 0} },
+    { MODKEY,                       XK_bracketleft,  tagview,      {.ui = 1 << 1} },
+    { MODKEY|ShiftMask,             XK_bracketleft,  tagview,      {.ui = 1 << 2} },
+    { MODKEY|ShiftMask,             XK_9,            tagview,      {.ui = 1 << 3} },
+    { MODKEY|ShiftMask,             XK_7,            tagview,      {.ui = 1 << 4} },
+    { MODKEY|ShiftMask,             XK_grave,        tagview,      {.ui = 1 << 5} },
+    { MODKEY|ShiftMask,             XK_0,            tagview,      {.ui = 1 << 6} },
+    { MODKEY|ShiftMask,             XK_bracketright, tagview,      {.ui = 1 << 7} },
+    { MODKEY,                       XK_bracketright, tagview,      {.ui = 1 << 8} },
 
     TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
@@ -76,16 +94,6 @@ static const Key keys[] = {
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)
-
-    { MODKEY|ShiftMask,             XK_1,            tag,      {.ui = 1 << 0} },
-    { MODKEY,                       XK_bracketleft,  tag,      {.ui = 1 << 1} },
-    { MODKEY|ShiftMask,             XK_bracketleft,  tag,      {.ui = 1 << 2} },
-    { MODKEY|ShiftMask,             XK_9,            tag,      {.ui = 1 << 3} },
-    { MODKEY|ShiftMask,             XK_7,            tag,      {.ui = 1 << 4} },
-    { MODKEY|ShiftMask,             XK_grave,        tag,      {.ui = 1 << 5} },
-    { MODKEY|ShiftMask,             XK_0,            tag,      {.ui = 1 << 6} },
-    { MODKEY|ShiftMask,             XK_bracketright, tag,      {.ui = 1 << 7} },
-    { MODKEY,                       XK_bracketright, tag,      {.ui = 1 << 8} },
 };
 
 /* button definitions */
