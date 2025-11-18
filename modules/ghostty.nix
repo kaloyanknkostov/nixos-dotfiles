@@ -1,10 +1,23 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.ghostty = {
     enable = true;
     enableZshIntegration = true;
     installBatSyntax = true;
     installVimSyntax = true;
+
+    # ------------------------------------------------------------------------
+    # FORCE SOFTWARE RENDERING (Critical for VirtualBox)
+    # ------------------------------------------------------------------------
+    # This wraps the ghostty binary to ensure LIBGL_ALWAYS_SOFTWARE=1 is set
+    # every time it runs, fixing the "Unable to acquire OpenGL context" error.
+    package = pkgs.ghostty.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+      postInstall = (old.postInstall or "") + ''
+        wrapProgram $out/bin/ghostty \
+          --set LIBGL_ALWAYS_SOFTWARE 1
+      '';
+    });
 
     themes = {
       vague = {
@@ -26,31 +39,41 @@
           "14=#bebeda"
           "15=#d7d7d7"
         ];
-
         background = "#141415";
         foreground = "#cdcdcd";
         "selection-background" = "#252530";
         "selection-foreground" = "#cdcdcd";
         "split-divider-color" = "#878787";
-        "cursor-color" = "#cdcdcd"; # Added to match foreground visibility
+        "cursor-color" = "#cdcdcd";
       };
     };
+
     settings = {
-      theme = "vague"; # Important: This must match the name in 'themes'
+      theme = "vague";
       "font-size" = 14;
-      "gtk-single-instance" = false;
+      "font-family" = "JetBrainsMono Mono Nerd Font";
+      "font-style" = "Medium";
+
+      # Window & GTK Settings
+      "gtk-single-instance" = false; # Must be false for VirtualBox stability
       "window-decoration" = false;
       "confirm-close-surface" = false;
-      "resize-overlay " = "never";
-      "cursor-style " = "block";
-      "cursor-style-blink " = false;
-      "shell-integration " = "zsh";
-      "shell-integration-features " = "no-cursor";
-      "mouse-hide-while-typing " = "true";
-      "font-family " = "JetBrainsMono Mono Nerd Font";
-      "font-style " = "Medium";
-      "quick-terminal-position " = "center";
-      "quick-terminal-size " = "80%,80%";
+      "resize-overlay" = "never"; # Fixed typo (removed space)
+
+      # Cursor & Mouse
+      "cursor-style" = "block"; # Fixed typo
+      "cursor-style-blink" = false; # Fixed typo
+      "mouse-hide-while-typing" = true; # Fixed typo
+
+      # Shell Integration
+      "shell-integration" = "zsh"; # Fixed typo
+      "shell-integration-features" = "no-cursor"; # Fixed typo
+
+      # Quick Terminal
+      "quick-terminal-position" = "center"; # Fixed typo
+      "quick-terminal-size" = "80%,80%"; # Fixed typo
+
+      # Keybinds
       keybind = [
         "global:super+l=toggle_quick_terminal"
       ];
