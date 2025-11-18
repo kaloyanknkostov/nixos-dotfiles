@@ -10,7 +10,8 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
     # Set up Zsh history to use the standard XDG cache directory (~/.cache)
     history = {
       size = 100000;

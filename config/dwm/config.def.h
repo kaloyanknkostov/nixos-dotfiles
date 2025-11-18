@@ -1,23 +1,21 @@
-/* See LICENSE file for copyright and license details. */
-
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
+static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=16" };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_gray1[]       = "#141415"; /* base00: Normal Background */
+static const char col_gray2[]       = "#252530"; /* base02: Inactive Window Border */
+static const char col_gray3[]       = "#cdcdcd"; /* base05: Normal Text */
+static const char col_gray4[]       = "#141415"; /* base00: Selected Text (Dark text for contrast) */
+static const char col_cyan[]        = "#6e94b2"; /* base0D: Selected Background/Border (Blue) */
+
 static const char *colors[][3]      = {
     /* fg         bg         border   */
     [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
     [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
-
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -27,8 +25,8 @@ static const Rule rules[] = {
      * WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    { "Gimp",     NULL,       NULL,       0,            1,           -1 },
-    { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+    { "zen",  NULL,       NULL,       1 << 0,       0,           -1 },
+    { "ghostty",  NULL,       NULL,       1 << 1,       0,           -1 },
 };
 
 /* layout(s) */
@@ -62,38 +60,38 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "ghostty", NULL };
 
 void
-tagview(const Arg *arg)
+tagandview(const Arg *arg)
 {
     tag(arg);
     view(arg);
 }
 
 static const Key keys[] = {
-    { MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
-    { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY,                       XK_b,      togglebar,      {0} },
-    { MODKEY,                       XK_q,      killclient,     {0} },
-    { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-
-    { MODKEY|ShiftMask,             XK_1,            tagview,      {.ui = 1 << 0} },
-    { MODKEY,                       XK_bracketleft,  tagview,      {.ui = 1 << 1} },
-    { MODKEY|ShiftMask,             XK_bracketleft,  tagview,      {.ui = 1 << 2} },
-    { MODKEY|ShiftMask,             XK_9,            tagview,      {.ui = 1 << 3} },
-    { MODKEY|ShiftMask,             XK_7,            tagview,      {.ui = 1 << 4} },
-    { MODKEY|ShiftMask,             XK_grave,        tagview,      {.ui = 1 << 5} },
-    { MODKEY|ShiftMask,             XK_0,            tagview,      {.ui = 1 << 6} },
-    { MODKEY|ShiftMask,             XK_bracketright, tagview,      {.ui = 1 << 7} },
-    { MODKEY,                       XK_bracketright, tagview,      {.ui = 1 << 8} },
-
-    TAGKEYS(                        XK_1,                      0)
-    TAGKEYS(                        XK_2,                      1)
-    TAGKEYS(                        XK_3,                      2)
-    TAGKEYS(                        XK_4,                      3)
-    TAGKEYS(                        XK_5,                      4)
-    TAGKEYS(                        XK_6,                      5)
-    TAGKEYS(                        XK_7,                      6)
-    TAGKEYS(                        XK_8,                      7)
-    TAGKEYS(                        XK_9,                      8)
+    /* System keys ____________________________________________________________________________________________________________*/
+    { MODKEY,                       XK_space,		    spawn,			        {.v = dmenucmd } },
+    { MODKEY,                       XK_Return,		    spawn,		                {.v = termcmd } },
+    { MODKEY,                       XK_b,		    togglebar,			        {0} },
+    { MODKEY,                       XK_q,		    killclient,				{0} },
+    { MODKEY|ShiftMask,             XK_q,		    quit,				{0} },
+    /* Tags____________________________________________________________________________________________________________________*/
+    { MODKEY,                       XK_1,		    view,				{.ui = 1 << 0} },
+    { MODKEY,                       XK_2,		    view,				{.ui = 1 << 1} },
+    { MODKEY,                       XK_3,		    view,				{.ui = 1 << 2} },
+    { MODKEY,                       XK_4,		    view,				{.ui = 1 << 3} },
+    { MODKEY,                       XK_5,		    view,				{.ui = 1 << 4} },
+    { MODKEY,                       XK_6,		    view,				{.ui = 1 << 5} },
+    { MODKEY,                       XK_7,		    view,				{.ui = 1 << 6} },
+    { MODKEY,                       XK_8,		    view,				{.ui = 1 << 7} },
+    { MODKEY,                       XK_9,		    view,				{.ui = 1 << 8} },
+    { MODKEY|ShiftMask,             XK_1,		    tagandview,				{.ui = 1 << 0} },
+    { MODKEY,                       XK_bracketleft,	    tagandview,				{.ui = 1 << 1} },
+    { MODKEY|ShiftMask,             XK_bracketleft,	    tagandview,				{.ui = 1 << 2} },
+    { MODKEY|ShiftMask,             XK_9,		    tagandview,				{.ui = 1 << 3} },
+    { MODKEY|ShiftMask,             XK_7,		    tagandview,				{.ui = 1 << 4} },
+    { MODKEY|ShiftMask,             XK_grave,		    tagandview,				{.ui = 1 << 5} },
+    { MODKEY|ShiftMask,             XK_0,		    tagandview,				{.ui = 1 << 6} },
+    { MODKEY|ShiftMask,             XK_bracketright,	    tagandview,				{.ui = 1 << 7} },
+    { MODKEY,                       XK_bracketright,	    tagandview,				{.ui = 1 << 8} },
 };
 
 /* button definitions */

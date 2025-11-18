@@ -8,7 +8,7 @@
 
     # Your existing inputs
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-
+    stylix.url = "github:danth/stylix";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,21 +28,18 @@
         specialArgs = { inherit inputs; }; # Pass inputs to NixOS modules
         modules = [
           ./configuration.nix
-
+          inputs.stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
-            # --- THIS IS THE CRITICAL PART ---
-            # You must pass 'inputs' and 'neovim-nightly' here so home.nix can see them
             home-manager.extraSpecialArgs = {
               inherit inputs;
               inherit (inputs) neovim-nightly;
             };
-
             home-manager.users.kaloyan = import ./home.nix;
           }
+
         ];
       };
     };

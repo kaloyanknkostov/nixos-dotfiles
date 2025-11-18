@@ -51,6 +51,9 @@ in
         IdentityFile ~/.ssh/id_ed25519
     '';
   };
+  stylix.targets.neovim.enable = false;
+  stylix.targets.tmux.enable = false;
+  stylix.targets.starship.enable = false;
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
   };
