@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 {
   programs.ghostty = {
     enable = true;
+    enableZshIntegration = true;
+    installBatSyntax = true;
+    installVimSyntax = true;
 
     themes = {
       vague = {
@@ -32,28 +35,25 @@
         "cursor-color" = "#cdcdcd"; # Added to match foreground visibility
       };
     };
-
     settings = {
       theme = "vague"; # Important: This must match the name in 'themes'
       "font-size" = 14;
       "gtk-single-instance" = false;
+      "window-decoration" = false;
+      "confirm-close-surface" = false;
+      "resize-overlay " = "never";
+      "cursor-style " = "block";
+      "cursor-style-blink " = false;
+      "shell-integration " = "zsh";
+      "shell-integration-features " = "no-cursor";
+      "mouse-hide-while-typing " = "true";
+      "font-family " = "JetBrainsMono Mono Nerd Font";
+      "font-style " = "Medium";
+      "quick-terminal-position " = "center";
+      "quick-terminal-size " = "80%,80%";
+      keybind = [
+        "global:super+l=toggle_quick_terminal"
+      ];
     };
   };
 }
-# theme = vague
-# window-decoration = false
-# confirm-close-surface=false
-# resize-overlay = never
-# cursor-style = "block"
-# cursor-style-blink = false
-# shell-integration = zsh
-# shell-integration-features = no-cursor
-# mouse-hide-while-typing = true
-# background-opacity = 1.0
-# background-blur-radius = 80
-# font-family = "JetBrainsMono Mono Nerd Font"
-# font-style = "Medium"
-# font-size = 14
-# keybind = global:super+l=toggle_quick_terminal
-# quick-terminal-position = center
-# quick-terminal-size = 80%,80%
