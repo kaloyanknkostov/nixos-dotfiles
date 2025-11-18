@@ -4,7 +4,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./moules/kanata.nix
+    ./modules/kanata.nix
   ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -20,8 +20,7 @@
     nvidiaSettings = true;
   };
   services.xserver = {
-    autoRepeatDelay = 200;
-    autoRepeatInterval = 35;
+
     enable = true;
     windowManager.dwm = {
       enable = true;
