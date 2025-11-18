@@ -64,10 +64,10 @@
       "nix-command"
       "flakes"
     ];
-    substituters = [ "https://neovim-nightly.cachix.org" ];
-    trusted-public-keys = [
-      "neovim-nightly.cachix.org-1:vSoGjEbPlg7cfsclnxb21L/nQvN4hHlD9n2TR5Gk7WI="
-    ];
+    # substituters = [ "https://neovim-nightly.cachix.org" ];
+    # trusted-public-keys = [
+    #   "neovim-nightly.cachix.org-1:vSoGjEbPlg7cfsclnxb21L/nQvN4hHlD9n2TR5Gk7WI="
+    # ];
   };
   system.stateVersion = "25.05"; # Did you read the comment?
 
