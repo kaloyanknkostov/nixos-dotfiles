@@ -317,8 +317,6 @@
   programs.eza.enableZshIntegration = true;
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
-  programs.yazi.enable = true;
-  programs.yazi.enableZshIntegration = true;
   programs.tmux.enable = true;
 
   home.packages = with pkgs; [

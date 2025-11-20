@@ -18,16 +18,22 @@ in
     ./modules/ghostty.nix
     ./modules/sh.nix
     ./modules/tmux.nix
+    ./modules/yazi.nix
+    ./modules/xdg-portal.nix
     inputs.zen-browser.homeModules.twilight-official
   ];
   home.packages = with pkgs; [
     xclip # For X11 (most desktop environments)
+    jetbrains.idea-community
+    dragon-drop
+    alacritty
   ];
   home.username = "kaloyan";
   home.homeDirectory = "/home/kaloyan";
   home.stateVersion = "25.05";
   home.sessionVariables = {
     LIBGL_ALWAYS_SOFTWARE = "1";
+    GTK_USE_PORTAL = "1";
   };
   xdg.configFile = builtins.mapAttrs (name: path: {
     source = config.lib.file.mkOutOfStoreSymlink "${dotfilesConfigDir}/${path}";

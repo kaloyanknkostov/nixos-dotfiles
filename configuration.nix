@@ -8,7 +8,10 @@
   ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
   networking.hostName = "kaloyan";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Sofia";

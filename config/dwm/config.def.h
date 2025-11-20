@@ -27,6 +27,7 @@ static const Rule rules[] = {
     /* class      instance    title       tags mask     isfloating   monitor */
     { "zen",  NULL,       NULL,       1 << 0,       0,           -1 },
     { "ghostty",  NULL,       NULL,       1 << 1,       0,           -1 },
+    { "yazi-file-picker",  NULL,       NULL,       0,       1,           -1 },
 };
 
 /* layout(s) */
