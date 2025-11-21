@@ -24,7 +24,13 @@
   };
   services.xserver = {
     enable = true;
+    videoDrivers = [ "modesetting" ];
     displayManager.sessionCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --auto
+      VBoxClient-all &
+      ${pkgs.xorg.xrandr}/bin/xrandr --newmode "2560x1440_60.00"  312.25  2560 2744 3024 3488  1440 1443 1448 1493 -hsync +vsync
+      ${pkgs.xorg.xrandr}/bin/xrandr --addmode Virtual-1 "2560x1440_60.00"
+      ${pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode "2560x1440_60.00"
       zen &
         ghostty &
         while true; do
@@ -38,7 +44,6 @@
         src = ./config/dwm;
       };
     };
-    videoDrivers = [ "vmsvga" ];
   };
   programs.zsh.enable = true;
   users.users.kaloyan = {
