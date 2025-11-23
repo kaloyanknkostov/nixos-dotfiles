@@ -23,24 +23,49 @@
       ...
     }@inputs:
     {
-      nixosConfigurations.kaloyan = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; }; # Pass inputs to NixOS modules
-        modules = [
-          ./configuration.nix
-          inputs.stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-              inherit (inputs) neovim-nightly;
-            };
-            home-manager.users.kaloyan = import ./home.nix;
-          }
+      nixosConfigurations = {
 
-        ];
+        nixos-vm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/vm/default.nix
+
+            inputs.stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                inherit (inputs) neovim-nightly;
+              };
+              home-manager.users.kaloyan = import ./home.nix;
+            }
+          ];
+        };
+
+        nixos-pc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/pc/default.nix
+
+            inputs.stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                inherit (inputs) neovim-nightly;
+              };
+              home-manager.users.kaloyan = import ./home.nix;
+            }
+          ];
+        };
+
       };
     };
 }

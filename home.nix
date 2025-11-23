@@ -27,6 +27,7 @@ in
     jetbrains.idea-community
     dragon-drop
     alacritty
+    spotify
   ];
   home.username = "kaloyan";
   home.homeDirectory = "/home/kaloyan";
@@ -57,11 +58,36 @@ in
         IdentityFile ~/.ssh/id_ed25519
     '';
   };
-  stylix.targets.neovim.enable = false;
-  stylix.targets.tmux.enable = false;
-  stylix.targets.starship.enable = false;
+  programs.zen-browser = {
+    enable = true;
+    profiles.default = {
+      id = 0;
+      name = "Default";
+      isDefault = true;
+    };
+  };
+
+  programs.firefox = {
+    enable = true;
+    # profiles.default = {
+    #   id = 0;
+    #   name = "Default";
+    #   isDefault = true;
+    # };
+  };
+  programs.brave.enable = true;
+  programs.obsidian.enable = true;
+  # STYLIX TARGETS
+  stylix.targets.zen-browser.enable = true;
+  stylix.targets.zen-browser.enableCss = true;
+  stylix.targets.zen-browser.profileNames = [ "default" ];
+  stylix.targets.firefox.enable = true;
+  stylix.targets = {
+    neovim.enable = false;
+    tmux.enable = false;
+    starship.enable = false;
+  };
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
   };
-  programs.zen-browser.enable = true;
 }
