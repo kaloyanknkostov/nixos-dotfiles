@@ -5,9 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Your existing inputs
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay?r=3e067256eaa258df675cafaed2bcef55b41ecb60";
     stylix.url = "github:danth/stylix";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";

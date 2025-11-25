@@ -21,13 +21,15 @@ in
     ./modules/yazi.nix
     ./modules/xdg-portal.nix
     inputs.zen-browser.homeModules.twilight-official
+    inputs.spicetify-nix.homeManagerModules.default
+
   ];
   home.packages = with pkgs; [
     xclip # For X11 (most desktop environments)
     jetbrains.idea-community
     dragon-drop
     alacritty
-    spotify
+    obsidian
   ];
   home.username = "kaloyan";
   home.homeDirectory = "/home/kaloyan";
@@ -76,16 +78,16 @@ in
     # };
   };
   programs.brave.enable = true;
-  programs.obsidian.enable = true;
-  # STYLIX TARGETS
-  stylix.targets.zen-browser.enable = true;
-  stylix.targets.zen-browser.enableCss = true;
-  stylix.targets.zen-browser.profileNames = [ "default" ];
-  stylix.targets.firefox.enable = true;
+  programs.spicetify.enable = true;
   stylix.targets = {
     neovim.enable = false;
     tmux.enable = false;
     starship.enable = false;
+    obsidian.enable = true;
+    obsidian.vaultNames = [
+      "Notes"
+    ];
+    firefox.enable = true;
   };
   programs.neovim = {
     package = neovim-nightly.packages.${pkgs.system}.default;
