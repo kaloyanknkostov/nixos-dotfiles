@@ -8,7 +8,7 @@
   networking.hostName = "nixos-pc"; # The "Automatic" identifier
 
   # Nvidia Specifics
-  hardware.opengl.enable = true;
+  # hardware.opengl.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {

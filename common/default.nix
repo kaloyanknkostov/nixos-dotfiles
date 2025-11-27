@@ -3,8 +3,9 @@
 {
   imports = [
     ../modules/stylix.nix
-    #../modules/dwm.nix # <--- Import the new module here
-    #    ../modules/cosmic.nix # <--- Import the new module here
+    # ../modules/dwm.nix # <--- Import the new module here
+    ../modules/sway.nix
+    ../modules/cosmic.nix
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -12,8 +13,6 @@
   time.timeZone = "Europe/Sofia";
   i18n.defaultLocale = "en_GB.UTF-8";
   networking.networkmanager.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
   programs.zsh.enable = true;
   users.users.kaloyan = {
     isNormalUser = true;

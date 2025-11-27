@@ -11,6 +11,7 @@
     stylix.url = "github:danth/stylix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    # nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
   };
 
   outputs =
@@ -28,6 +29,14 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/vm/default.nix
+            # {
+            #   nix.settings = {
+            #     substituters = [ "https://cosmic.cachix.org/" ];
+            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+            #   };
+            # }
+            #inputs.nixos-cosmic.nixosModules.default
+
             inputs.stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
             {
