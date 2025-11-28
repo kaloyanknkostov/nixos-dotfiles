@@ -3,9 +3,6 @@
 {
   imports = [
     ../modules/stylix.nix
-    # ../modules/dwm.nix # <--- Import the new module here
-    ../modules/sway.nix
-    ../modules/cosmic.nix
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;

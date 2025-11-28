@@ -8,6 +8,7 @@
   imports = [
     ../../common/default.nix
     ./hardware-configuration.nix
+    ../../modules/sway.nix
   ];
 
   networking.hostName = "nixos-vm";
