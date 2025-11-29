@@ -20,13 +20,12 @@ in
     ./modules/tmux.nix
     ./modules/yazi.nix
     ./modules/xdg-portal.nix
-    # ./modules/sway-home.nix
+    ./modules/sway-home.nix
     inputs.zen-browser.homeModules.beta
     inputs.spicetify-nix.homeManagerModules.default
 
   ];
   home.packages = with pkgs; [
-    xclip # For X11 (most desktop environments)
     jetbrains.idea-community
     dragon-drop
     alacritty

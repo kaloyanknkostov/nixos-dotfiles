@@ -8,10 +8,9 @@
       terminal = "ghostty";
       menu = "bemenu-run";
 
-      # Window rules to remove titlebars (from previous step)
       window = {
         titlebar = false;
-        border = 2;
+        border = 0;
       };
       floating = {
         titlebar = false;
@@ -21,7 +20,7 @@
       bars = [
         {
           command = "swaybar";
-          position = "bottom";
+          position = "top";
           statusCommand = "while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done";
           colors = {
             statusline = "#ffffff";
@@ -40,7 +39,7 @@
       # ---------------------------------------------------------
       keybindings = lib.mkOptionDefault {
         "Mod4+Return" = "exec ghostty";
-        "Mod4+Shift+q" = "kill";
+        "Mod4+q" = "kill";
 
         # Bemenu on Super + Space
         "Mod4+space" = "exec bemenu-run";
@@ -54,16 +53,36 @@
 
       input = {
         "*" = { xkb_layout = "us"; };
-        "type:touchpad" = { tap = "enabled"; natural_scroll = "enabled"; };
       };
 
+assigns = {
+        "1" = [
+          { app_id = "zen"; } 
+          { app_id = "zen-browser"; } # Zen might use this ID depending on version
+          { app_id = "zen-beta"; } # Zen might use this ID depending on version
+        ];
+        "2" = [
+          { app_id = "com.mitchellh.ghostty"; } # Default Ghostty ID
+          { app_id = "ghostty"; } # Fallback
+        ];
+        "5" = [
+          { app_id = "obsidian"; }  # If running natively
+          { class = "Obsidian"; }   # If running via XWayland
+        ];
+        "6" = [
+          { class = "Spotify"; }    # Spotify usually runs on XWayland
+        ];
+      };
       startup = [
         { command = "mako"; }
         { command = "nm-applet --indicator"; }
-        { command = "VBoxClient-all"; }
+        { command = "zen"; }
+        { command = "ghostty"; }
+        { command = "spotify"; }
+        { command = "obsidian"; }
       ];
     };
     
-    xwayland = true;
+     xwayland = true;
   };
 }

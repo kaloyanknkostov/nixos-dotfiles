@@ -11,6 +11,7 @@
   i18n.defaultLocale = "en_GB.UTF-8";
   networking.networkmanager.enable = true;
   programs.zsh.enable = true;
+
   users.users.kaloyan = {
     isNormalUser = true;
     description = "kaloyan";
