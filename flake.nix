@@ -9,7 +9,7 @@
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay?r=3e067256eaa258df675cafaed2bcef55b41ecb60";
     stylix.url = "github:danth/stylix";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -50,11 +50,12 @@
             ./hosts/pc/default.nix
 
             inputs.stylix.nixosModules.stylix
-            inputs.nixos-cosmic.nixosModules.default
+	      
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
               home-manager.extraSpecialArgs = {
                 inherit inputs;
                 inherit (inputs) neovim-nightly;

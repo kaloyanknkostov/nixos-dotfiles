@@ -11,14 +11,14 @@
     # ------------------------------------------------------------------------
     # This wraps the ghostty binary to ensure LIBGL_ALWAYS_SOFTWARE=1 is set
     # every time it runs, fixing the "Unable to acquire OpenGL context" error.
-    package = pkgs.ghostty.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
-      postInstall = (old.postInstall or "") + ''
-        wrapProgram $out/bin/ghostty \
-          --set LIBGL_ALWAYS_SOFTWARE 1
-      '';
-    });
-
+    # package = pkgs.ghostty.overrideAttrs (old: {
+    #   nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+    #   postInstall = (old.postInstall or "") + ''
+    #     wrapProgram $out/bin/ghostty \
+    #       --set LIBGL_ALWAYS_SOFTWARE 1
+    #   '';
+    # });
+    #
     themes = {
       vague = {
         palette = [
@@ -55,7 +55,6 @@
       "font-style" = "Medium";
 
       # Window & GTK Settings
-      "gtk-single-instance" = false; # Must be false for VirtualBox stability
       "window-decoration" = false;
       "confirm-close-surface" = false;
       "resize-overlay" = "never"; # Fixed typo (removed space)

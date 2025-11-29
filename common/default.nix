@@ -32,6 +32,7 @@
     fastfetch
     xclip
     alacritty
+    pciutils
   ];
   environment.pathsToLink = [
     "/share/xdg-desktop-portal"

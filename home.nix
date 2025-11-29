@@ -20,7 +20,8 @@ in
     ./modules/tmux.nix
     ./modules/yazi.nix
     ./modules/xdg-portal.nix
-    inputs.zen-browser.homeModules.twilight-official
+    # ./modules/sway-home.nix
+    inputs.zen-browser.homeModules.beta
     inputs.spicetify-nix.homeManagerModules.default
 
   ];
@@ -35,7 +36,6 @@ in
   home.homeDirectory = "/home/kaloyan";
   home.stateVersion = "25.05";
   home.sessionVariables = {
-    LIBGL_ALWAYS_SOFTWARE = "1";
     GTK_USE_PORTAL = "1";
   };
   xdg.configFile = builtins.mapAttrs (name: path: {
@@ -60,14 +60,15 @@ in
         IdentityFile ~/.ssh/id_ed25519
     '';
   };
-  programs.zen-browser = {
-    enable = true;
-    profiles.default = {
-      id = 0;
-      name = "Default";
-      isDefault = true;
-    };
-  };
+  programs.zen-browser.enable = true;
+ # programs.zen-browser = {
+  #  enable = false;
+  #  profiles.default = {
+   #   id = 0;
+ #     name = "Default";
+  #    isDefault = true;
+   # };
+ # };
 
   programs.firefox = {
     enable = true;

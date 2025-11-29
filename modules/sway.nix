@@ -10,15 +10,16 @@
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    extraOptions = ["--unsupported-gpu"];
     extraPackages = with pkgs; [
+      wdisplays
       swayidle
       swaylock
       swaybg
       wmenu
+      kitty
     ];
   };
-
-  # XDG Portal for basic functionality
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -26,10 +27,7 @@
     config.common.default = "*";
   };
 
-  # Enable necessary services
   services.dbus.enable = true;
-
-  # Enable PipeWire for audio
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -38,22 +36,20 @@
     pulse.enable = true;
   };
 
-  # Environment variables for Wayland
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
-  # Enable display manager
-  services.greetd = {
+
+  services.xserver.enable = true; # Keeps drivers/layouts loaded
+  services.displayManager.sddm = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
+    wayland.enable = true; # <--- This forces the login screen to use Wayland
   };
 }
