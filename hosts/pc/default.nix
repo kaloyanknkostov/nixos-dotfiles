@@ -5,8 +5,8 @@
     ./hardware-configuration.nix # Import PC hardware config
     ../../modules/sway.nix
   ];
- networking.hostName = "nixos-pc"; # The "Automatic" identifier
-
+  networking.hostName = "nixos-pc"; # The "Automatic" identifier
+  boot.kernelPackages = pkgs.linuxPackages_latest; 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;

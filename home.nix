@@ -28,8 +28,8 @@ in
   home.packages = with pkgs; [
     jetbrains.idea-community
     dragon-drop
-    alacritty
     obsidian
+    adwaita-icon-theme
   ];
   home.username = "kaloyan";
   home.homeDirectory = "/home/kaloyan";

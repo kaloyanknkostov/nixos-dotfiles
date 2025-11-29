@@ -16,11 +16,18 @@
         titlebar = false;
         border = 2;
       };
-
+output = {
+        "DP-3" = {
+          mode = "2560x1440@239.97Hz";
+          adaptive_sync = "off";
+          allow_tearing = "no"; 
+        };
+      };
       bars = [
         {
           command = "swaybar";
           position = "top";
+	  mode = "hide";
           statusCommand = "while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done";
           colors = {
             statusline = "#ffffff";
@@ -40,16 +47,11 @@
       keybindings = lib.mkOptionDefault {
         "Mod4+Return" = "exec ghostty";
         "Mod4+q" = "kill";
-
-        # Bemenu on Super + Space
         "Mod4+space" = "exec bemenu-run";
-
-        # Remap floating toggle to Shift + Super + Space (since we overwrote Mod4+space)
         "Mod4+Shift+space" = "floating toggle";
-
         "Print" = "exec grim -g \"$(slurp)\" - | wl-copy";
+        "Mod4+b" = "bar mode toggle";
       };
-      # ---------------------------------------------------------
 
       input = {
         "*" = { xkb_layout = "us"; };
@@ -70,7 +72,7 @@ assigns = {
           { class = "Obsidian"; }   # If running via XWayland
         ];
         "6" = [
-          { class = "Spotify"; }    # Spotify usually runs on XWayland
+          { class = "spotify"; }    # Spotify usually runs on XWayland
         ];
       };
       startup = [

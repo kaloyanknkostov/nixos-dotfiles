@@ -71,5 +71,5 @@
     environment.systemPackages = with pkgs; [
     polkit_gnome    # Required for the authentication agent service above
   ];
-   programs.zsh.loginShellInit = ''if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then exec sway --unsupported-gpu fi'';
+   programs.zsh.loginShellInit = ''if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then exec sway --unsupported-gpu; fi'';
 }
